@@ -63,6 +63,13 @@ jobs:
           $DELAY_MAX = 12;
           $MAX_RETRIES = 2;
 
+          function parseRemote($config) {
+              if (preg_match('/^\s*remote\s+(\S+)\s+(\d+)/mi', $config, $m)) {
+                  return ['ip' => $m[1], 'port' => (int)$m[2]];
+              }
+              return null;
+          }
+
           function fetchConfig($hash) {
               $url = "https://api.tap2free.net/api/uk-server?ip=" . $hash;
               $ch = curl_init();
@@ -136,6 +143,7 @@ jobs:
               }
 
               if ($result['ok']) {
+                  $remote = parseRemote($result['config']);
                   $entry = [
                       'hash' => $hash,
                       'name' => $info['name'],
@@ -144,6 +152,8 @@ jobs:
                       'country_en' => $info['country_en'],
                       'country_ru' => $info['country_ru'],
                       'free' => $info['free'],
+                      'ip' => $remote['ip'] ?? null,
+                      'port' => $remote['port'] ?? null,
                       'config' => $result['config'],
                       'updated_at' => date('c'),
                   ];
@@ -157,9 +167,11 @@ jobs:
                       'country_en' => $info['country_en'],
                       'country_ru' => $info['country_ru'],
                       'free' => $info['free'],
+                      'ip' => $remote['ip'] ?? null,
+                      'port' => $remote['port'] ?? null,
                       'updated_at' => date('c'),
                   ];
-                  echo "  OK\n";
+                  echo "  OK" . ($remote ? " ({$remote['ip']}:{$remote['port']})" : "") . "\n";
                   $ok++;
               } else {
                   $unavailable[$hash] = [
@@ -193,6 +205,7 @@ jobs:
                       'license' => '?api=license&key=LICENSE_KEY',
                       'servers' => '?api=servers',
                       'config' => '?api=config&key=LICENSE_KEY&hash=HASH',
+                      'all_configs' => '?api=all_configs&key=LICENSE_KEY',
                       'ping' => '?api=ping'
                   ],
                   'support' => [
