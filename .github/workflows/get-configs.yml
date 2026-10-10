@@ -1,108 +1,63 @@
-name: Fetch VPN Configs
+name: Refresh VPN Configs
 
 on:
-  workflow_dispatch:
-    inputs:
-      license_key:
-        description: 'License key'
-        required: true
-        default: 'mehdi'
-      server_hash:
-        description: 'Server hash (empty = all)'
-        required: false
-        default: ''
-      only_free:
-        description: 'Only free servers? (true/false)'
-        required: false
-        default: 'false'
-      commit_to_repo:
-        description: 'Commit configs back to repo? (true/false)'
-        required: false
-        default: 'false'
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  fetch-configs:
+  refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 30
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: curl, json
-          ini-values: memory_limit=256M
 
-      - name: Write api.php
+      - name: Fetch all configs
         run: |
-          cat > api.php <<'PHP_EOF'
+          mkdir -p configs
+          php <<'PHP_RUN'
           <?php
-          header('Access-Control-Allow-Origin: *');
-          header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-          header('Access-Control-Allow-Headers: Content-Type, app-id');
-
           $servers = [
-              'لندن 1' => ['hash' => '8e4aff22a236a0248110950e2bc004e3', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
-              'لندن 2' => ['hash' => '103dcdb655fdc8f190fad5103eff7b1c', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
-              'لندن 3' => ['hash' => '1b53a629cd6c462a0fc79c5b443a18f2', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
-              'لندن 4' => ['hash' => '3032ab5f733e32987fb8c558a1ab6bd8', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => true],
-              'لندن 6' => ['hash' => '443f285884c2ee2ba1c2d413c4b061b1', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => true],
-              'لندن 7' => ['hash' => '65fb9a7eda69a2c86c5aab403c6f6a68', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
-              'لندن 8' => ['hash' => 'cf787aff3d5abb2d6874cd07829c059d', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
-              'لندن 9' => ['hash' => '2e11f3164e78621056ebe3b9420263cd', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
-              'تورنتو 6' => ['hash' => 'aa9b688d11f6f00f5e35df9432ab8787', 'flag' => '🇨🇦', 'country_fa' => 'کانادا', 'country_en' => 'Canada', 'country_ru' => 'Канада', 'free' => false],
-              'هلسینکی' => ['hash' => '41f4b39ecd01db60722cc1e9a49021ea', 'flag' => '🇫🇮', 'country_fa' => 'فنلاند', 'country_en' => 'Finland', 'country_ru' => 'Финляндия', 'free' => false],
-              'هلسینکی 2' => ['hash' => 'ccaf9df13557073f4c665a55471c06dd', 'flag' => '🇫🇮', 'country_fa' => 'فنلاند', 'country_en' => 'Finland', 'country_ru' => 'Финляндия', 'free' => false],
-              'پاریس 2' => ['hash' => '584c39263735f278be00f8c77616d71d', 'flag' => '🇫🇷', 'country_fa' => 'فرانسه', 'country_en' => 'France', 'country_ru' => 'Франция', 'free' => false],
-              'پاریس 5' => ['hash' => '7e12a316c18322a66095af6404701691', 'flag' => '🇫🇷', 'country_fa' => 'فرانسه', 'country_en' => 'France', 'country_ru' => 'Франция', 'free' => false],
-              'لیمبرگ' => ['hash' => 'd604037ab01a04334c58f83f3e6fb022', 'flag' => '🇩🇪', 'country_fa' => 'آلمان', 'country_en' => 'Germany', 'country_ru' => 'Германия', 'free' => false],
-              'نورنبرگ' => ['hash' => '0bab23ed9c9d495b380deba981e1ae5b', 'flag' => '🇩🇪', 'country_fa' => 'آلمان', 'country_en' => 'Germany', 'country_ru' => 'Германия', 'free' => false],
-              'ریگا' => ['hash' => 'ff4f5e5271dda705d21eb96030c78542', 'flag' => '🇱🇻', 'country_fa' => 'لتونی', 'country_en' => 'Latvia', 'country_ru' => 'Латвия', 'free' => false],
-              'آمستردام' => ['hash' => '93ab5b85e1dc72c92e2e930d9d862da6', 'flag' => '🇳🇱', 'country_fa' => 'هلند', 'country_en' => 'Netherlands', 'country_ru' => 'Нидерланды', 'free' => false],
-              'ملیسانت' => ['hash' => '76207c1dec9e7ebdcd6602c1efb4626e', 'flag' => '🇳🇱', 'country_fa' => 'هلند', 'country_en' => 'Netherlands', 'country_ru' => 'Нидерланды', 'free' => false],
-              'مپل' => ['hash' => 'd2edfce290994ea85d764985f0166376', 'flag' => '🇳🇱', 'country_fa' => 'هلند', 'country_en' => 'Netherlands', 'country_ru' => 'Нидерланды', 'free' => false],
-              'فاتژ' => ['hash' => '7bd77605e0f24d3bc23ed2332f7889cb', 'flag' => '🇷🇺', 'country_fa' => 'روسیه', 'country_en' => 'Russia', 'country_ru' => 'Россия', 'free' => false],
-              'سنگاپور 1' => ['hash' => '1aaae679966b26801ff37fad781c704d', 'flag' => '🇸🇬', 'country_fa' => 'سنگاپور', 'country_en' => 'Singapore', 'country_ru' => 'Сингапур', 'free' => false],
-              'سنگاپور 3' => ['hash' => 'a95c8029def4dd562e3d2352b80d853a', 'flag' => '🇸🇬', 'country_fa' => 'سنگاپور', 'country_en' => 'Singapore', 'country_ru' => 'Сингапур', 'free' => false],
-              'خارکیف' => ['hash' => '2dee89dc102e525673c3a05153427500', 'flag' => '🇺🇦', 'country_fa' => 'اوکراین', 'country_en' => 'Ukraine', 'country_ru' => 'Украина', 'free' => false],
-              'آتلانتا 1' => ['hash' => 'b2d5157151f6586e22caab5f45e6c5e6', 'flag' => '🇺🇸', 'country_fa' => 'آمریکا', 'country_en' => 'United States', 'country_ru' => 'США', 'free' => false],
-              'نیویورک' => ['hash' => '44cc9ada5920ca8efd31c7496b262191', 'flag' => '🇺🇸', 'country_fa' => 'آمریکا', 'country_en' => 'United States', 'country_ru' => 'США', 'free' => false],
-              'استانبل 8' => ['hash' => 'cb91ece95a73ae0283ec3719ab759f90', 'flag' => '🇹🇷', 'country_fa' => 'ترکیه', 'country_en' => 'Turkey', 'country_ru' => 'Турция', 'free' => false],
-              'استانبل 3' => ['hash' => '6b5a3c3e2b9b4e6b965a639f4664e446', 'flag' => '🇹🇷', 'country_fa' => 'ترکیه', 'country_en' => 'Turkey', 'country_ru' => 'Турция', 'free' => false]
+              '8e4aff22a236a0248110950e2bc004e3' => ['name' => 'لندن 1', 'flag' => '🇬🇧', 'free' => false],
+              '103dcdb655fdc8f190fad5103eff7b1c' => ['name' => 'لندن 2', 'flag' => '🇬🇧', 'free' => false],
+              '1b53a629cd6c462a0fc79c5b443a18f2' => ['name' => 'لندن 3', 'flag' => '🇬🇧', 'free' => false],
+              '3032ab5f733e32987fb8c558a1ab6bd8' => ['name' => 'لندن 4', 'flag' => '🇬🇧', 'free' => true],
+              '443f285884c2ee2ba1c2d413c4b061b1' => ['name' => 'لندن 6', 'flag' => '🇬🇧', 'free' => true],
+              '65fb9a7eda69a2c86c5aab403c6f6a68' => ['name' => 'لندن 7', 'flag' => '🇬🇧', 'free' => false],
+              'cf787aff3d5abb2d6874cd07829c059d' => ['name' => 'لندن 8', 'flag' => '🇬🇧', 'free' => false],
+              '2e11f3164e78621056ebe3b9420263cd' => ['name' => 'لندن 9', 'flag' => '🇬🇧', 'free' => false],
+              'aa9b688d11f6f00f5e35df9432ab8787' => ['name' => 'تورنتو 6', 'flag' => '🇨🇦', 'free' => false],
+              '41f4b39ecd01db60722cc1e9a49021ea' => ['name' => 'هلسینکی', 'flag' => '🇫🇮', 'free' => false],
+              'ccaf9df13557073f4c665a55471c06dd' => ['name' => 'هلسینکی 2', 'flag' => '🇫🇮', 'free' => false],
+              '584c39263735f278be00f8c77616d71d' => ['name' => 'پاریس 2', 'flag' => '🇫🇷', 'free' => false],
+              '7e12a316c18322a66095af6404701691' => ['name' => 'پاریس 5', 'flag' => '🇫🇷', 'free' => false],
+              'd604037ab01a04334c58f83f3e6fb022' => ['name' => 'لیمبرگ', 'flag' => '🇩🇪', 'free' => false],
+              '0bab23ed9c9d495b380deba981e1ae5b' => ['name' => 'نورنبرگ', 'flag' => '🇩🇪', 'free' => false],
+              'ff4f5e5271dda705d21eb96030c78542' => ['name' => 'ریگا', 'flag' => '🇱🇻', 'free' => false],
+              '93ab5b85e1dc72c92e2e930d9d862da6' => ['name' => 'آمستردام', 'flag' => '🇳🇱', 'free' => false],
+              '76207c1dec9e7ebdcd6602c1efb4626e' => ['name' => 'ملیسانت', 'flag' => '🇳🇱', 'free' => false],
+              'd2edfce290994ea85d764985f0166376' => ['name' => 'مپل', 'flag' => '🇳🇱', 'free' => false],
+              '7bd77605e0f24d3bc23ed2332f7889cb' => ['name' => 'فاتژ', 'flag' => '🇷🇺', 'free' => false],
+              '1aaae679966b26801ff37fad781c704d' => ['name' => 'سنگاپور 1', 'flag' => '🇸🇬', 'free' => false],
+              'a95c8029def4dd562e3d2352b80d853a' => ['name' => 'سنگاپور 3', 'flag' => '🇸🇬', 'free' => false],
+              '2dee89dc102e525673c3a05153427500' => ['name' => 'خارکیف', 'flag' => '🇺🇦', 'free' => false],
+              'b2d5157151f6586e22caab5f45e6c5e6' => ['name' => 'آتلانتا 1', 'flag' => '🇺🇸', 'free' => false],
+              '44cc9ada5920ca8efd31c7496b262191' => ['name' => 'نیویورک', 'flag' => '🇺🇸', 'free' => false],
+              'cb91ece95a73ae0283ec3719ab759f90' => ['name' => 'استانبل 8', 'flag' => '🇹🇷', 'free' => false],
+              '6b5a3c3e2b9b4e6b965a639f4664e446' => ['name' => 'استانبل 3', 'flag' => '🇹🇷', 'free' => false],
           ];
 
-          $licenses = [
-              'mehdi' => ['active' => true, 'name' => 'Mehdi Ghasemi'],
-              'sajad' => ['active' => true, 'name' => 'Sajad Ghasemi'],
-              'hossein' => ['active' => true, 'name' => 'Hossein Shafaei'],
-              'ahmad' => ['active' => true, 'name' => 'Ahmad Shafaei'],
-          ];
-
-          function checkLicense($key) {
-              global $licenses;
-              if (!isset($licenses[$key])) {
-                  return ['valid' => false, 'reason' => 'invalid_key'];
-              }
-              $lic = $licenses[$key];
-              if (!isset($lic['active']) || $lic['active'] !== true) {
-                  return ['valid' => false, 'reason' => 'inactive'];
-              }
-              return [
-                  'valid' => true,
-                  'name' => isset($lic['name']) ? $lic['name'] : $key,
-                  'key' => $key
-              ];
-          }
-
-          function getConfig($hash) {
+          function fetchConfig($hash) {
               $url = "https://api.tap2free.net/api/uk-server?ip=" . $hash;
               $ch = curl_init();
               curl_setopt_array($ch, [
@@ -125,226 +80,57 @@ jobs:
               return isset($data['config']) ? $data['config'] : false;
           }
 
-          function respond($data, $code = 200) {
-              http_response_code($code);
-              header('Content-Type: application/json; charset=utf-8');
-              echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-              exit;
-          }
+          $ok = 0;
+          $fail = 0;
+          $index = [];
 
-          if (isset($_GET['api']) && $_GET['api'] === 'license') {
-              if (!isset($_GET['key']) || empty($_GET['key'])) {
-                  respond(['success' => false, 'error' => 'missing_key'], 400);
-              }
-              $key = trim($_GET['key']);
-              $result = checkLicense($key);
-              if ($result['valid']) {
-                  respond(['success' => true, 'valid' => true, 'name' => $result['name'], 'key' => $result['key']]);
-              } else {
-                  respond(['success' => true, 'valid' => false, 'reason' => $result['reason']]);
-              }
-          }
-
-          if (isset($_GET['api']) && $_GET['api'] === 'servers') {
-              $out = [];
-              foreach ($servers as $name => $info) {
-                  $out[] = [
-                      'name' => $name,
-                      'hash' => $info['hash'],
+          foreach ($servers as $hash => $info) {
+              $config = fetchConfig($hash);
+              if ($config !== false) {
+                  $entry = [
+                      'hash' => $hash,
+                      'name' => $info['name'],
                       'flag' => $info['flag'],
-                      'country_fa' => $info['country_fa'],
-                      'country_en' => $info['country_en'],
-                      'country_ru' => $info['country_ru'],
-                      'free' => $info['free']
+                      'free' => $info['free'],
+                      'config' => $config,
+                      'updated_at' => date('c'),
                   ];
-              }
-              respond(['success' => true, 'count' => count($out), 'servers' => $out]);
-          }
-
-          if (isset($_GET['api']) && $_GET['api'] === 'config') {
-              if (!isset($_GET['key']) || empty($_GET['key'])) {
-                  respond(['success' => false, 'error' => 'missing_license'], 401);
-              }
-              $key = trim($_GET['key']);
-              $licResult = checkLicense($key);
-              if (!$licResult['valid']) {
-                  respond(['success' => false, 'error' => 'invalid_license', 'reason' => $licResult['reason']], 403);
-              }
-              if (!isset($_GET['hash']) || empty($_GET['hash'])) {
-                  respond(['success' => false, 'error' => 'missing_hash'], 400);
-              }
-              $hash = $_GET['hash'];
-              $found = null;
-              $foundName = null;
-              foreach ($servers as $name => $info) {
-                  if ($info['hash'] === $hash) {
-                      $found = $info;
-                      $foundName = $name;
-                      break;
-                  }
-              }
-              if ($found === null) {
-                  respond(['success' => false, 'error' => 'invalid_hash'], 404);
-              }
-              $config = getConfig($hash);
-              if ($config === false) {
-                  respond(['success' => false, 'error' => 'config_fetch_failed'], 502);
-              }
-              respond([
-                  'success' => true,
-                  'name' => $foundName,
-                  'flag' => $found['flag'],
-                  'free' => $found['free'],
-                  'config' => $config
-              ]);
-          }
-
-          if (isset($_GET['api']) && $_GET['api'] === 'ping') {
-              $start = microtime(true);
-              $ch = curl_init();
-              curl_setopt_array($ch, [
-                  CURLOPT_URL => 'https://www.gstatic.com/generate_204',
-                  CURLOPT_RETURNTRANSFER => true,
-                  CURLOPT_NOBODY => true,
-                  CURLOPT_SSL_VERIFYPEER => false,
-                  CURLOPT_SSL_VERIFYHOST => false,
-                  CURLOPT_TIMEOUT => 5,
-                  CURLOPT_CONNECTTIMEOUT => 5
-              ]);
-              curl_exec($ch);
-              $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-              curl_close($ch);
-              $latency = round((microtime(true) - $start) * 1000);
-              respond(['success' => true, 'latency_ms' => $latency, 'status' => $httpCode]);
-          }
-
-          respond([
-              'success' => true,
-              'name' => 'Source-Store VPN API',
-              'version' => '1.0.0',
-              'endpoints' => [
-                  'license' => '?api=license&key=LICENSE_KEY',
-                  'servers' => '?api=servers',
-                  'config' => '?api=config&key=LICENSE_KEY&hash=HASH',
-                  'ping' => '?api=ping'
-              ],
-              'support' => [
-                  'telegram' => '@MehdiGH_1381',
-                  'website' => 'Source-Store.ir'
-              ]
-          ]);
-          PHP_EOF
-
-          sed -i 's/^          //' api.php
-          php -l api.php
-
-      - name: Start PHP server
-        run: |
-          php -S 127.0.0.1:8080 api.php > /tmp/php-server.log 2>&1 &
-          sleep 3
-          curl -s http://127.0.0.1:8080/ | head -c 400
-          echo ""
-
-      - name: Verify license and fetch server list
-        env:
-          LICENSE_KEY: ${{ github.event.inputs.license_key || 'mehdi' }}
-        run: |
-          curl -s "http://127.0.0.1:8080/?api=license&key=$LICENSE_KEY"
-          echo ""
-          curl -s "http://127.0.0.1:8080/?api=servers" -o /tmp/servers.json
-          php -r '$d=json_decode(file_get_contents("/tmp/servers.json"),true); echo "Total: ".$d["count"]."\n";'
-
-      - name: Fetch all configs
-        env:
-          LICENSE_KEY: ${{ github.event.inputs.license_key || 'mehdi' }}
-          ONLY_FREE: ${{ github.event.inputs.only_free || 'false' }}
-          SINGLE_HASH: ${{ github.event.inputs.server_hash }}
-        run: |
-          mkdir -p output
-          php <<'PHP_RUN'
-          <?php
-          $license    = getenv('LICENSE_KEY') ?: 'mehdi';
-          $onlyFree   = getenv('ONLY_FREE') === 'true';
-          $singleHash = getenv('SINGLE_HASH');
-
-          $servers = json_decode(file_get_contents('/tmp/servers.json'), true)['servers'];
-
-          $all = [];
-          $ok = 0; $fail = 0; $skip = 0;
-
-          foreach ($servers as $srv) {
-              if ($onlyFree && !$srv['free']) { $skip++; continue; }
-              if ($singleHash && $srv['hash'] !== $singleHash) { $skip++; continue; }
-
-              $url = 'http://127.0.0.1:8080/?api=config&key=' . urlencode($license)
-                   . '&hash=' . urlencode($srv['hash']);
-
-              $ch = curl_init($url);
-              curl_setopt_array($ch, [
-                  CURLOPT_RETURNTRANSFER => true,
-                  CURLOPT_TIMEOUT => 30,
-              ]);
-              $resp = curl_exec($ch);
-              curl_close($ch);
-
-              $data = json_decode($resp, true);
-              $name = $srv['name'];
-
-              if (!empty($data['config'])) {
-                  $safe = preg_replace('/[^\w\-]+/u', '_', $name);
-                  file_put_contents("output/{$safe}.txt", $data['config']);
-                  $all[] = "# ===== {$name} {$srv['flag']} =====";
-                  $all[] = $data['config'];
-                  $all[] = "";
-                  echo "OK   : {$name}\n";
+                  file_put_contents("configs/{$hash}.json",
+                      json_encode($entry, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+                  $index[$hash] = [
+                      'name' => $info['name'],
+                      'flag' => $info['flag'],
+                      'free' => $info['free'],
+                      'updated_at' => date('c'),
+                  ];
+                  echo "OK   : {$info['name']}\n";
                   $ok++;
               } else {
-                  echo "FAIL : {$name} => " . substr($resp, 0, 100) . "\n";
+                  echo "FAIL : {$info['name']}\n";
                   $fail++;
               }
           }
 
-          if (!empty($all)) {
-              file_put_contents('output/all-configs.txt', implode("\n", $all));
-          }
+          file_put_contents('configs/index.json',
+              json_encode([
+                  'updated_at' => date('c'),
+                  'total' => count($servers),
+                  'success' => $ok,
+                  'failed' => $fail,
+                  'servers' => $index,
+              ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 
-          $summary = [
-              'license' => $license,
-              'success' => $ok,
-              'failed'  => $fail,
-              'skipped' => $skip,
-              'generated_at' => date('c'),
-          ];
-          file_put_contents('output/summary.json',
-              json_encode($summary, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
-
-          echo "Success: {$ok}\n";
-          echo "Failed : {$fail}\n";
-          echo "Skipped: {$skip}\n";
+          echo "Success: {$ok}, Failed: {$fail}\n";
           PHP_RUN
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: vpn-configs-${{ github.run_number }}
-          path: output/
-          retention-days: 30
-
-      - name: Commit configs to repo
-        if: ${{ github.event.inputs.commit_to_repo == 'true' }}
+      - name: Commit and push
         run: |
-          git config user.name  "github-actions[bot]"
+          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          mkdir -p configs
-          cp -r output/* configs/ 2>/dev/null || true
           git add configs/
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "No changes"
           else
-            git commit -m "chore: update VPN configs ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+            git commit -m "chore: refresh configs $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             git push
           fi
-
-      - name: Show server log on failure
-        if: failure()
-        run: cat /tmp/php-server.log || true
