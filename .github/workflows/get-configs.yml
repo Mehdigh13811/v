@@ -17,6 +17,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Clean configs directory
+        run: |
+          if [ -d configs ]; then
+            echo "Removing existing configs..."
+            rm -rf configs
+          fi
+          mkdir -p configs
+          echo "configs directory is clean"
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -26,7 +35,6 @@ jobs:
 
       - name: Fetch all configs
         run: |
-          mkdir -p configs
           php <<'PHP_RUN'
           <?php
           $servers = [
@@ -164,14 +172,7 @@ jobs:
                       'reason' => $result['reason'],
                       'checked_at' => date('c'),
                   ];
-
-                  $existing = "configs/{$hash}.json";
-                  if (file_exists($existing)) {
-                      unlink($existing);
-                      echo "  FAIL ({$result['reason']}) - removed stale config\n";
-                  } else {
-                      echo "  FAIL ({$result['reason']})\n";
-                  }
+                  echo "  FAIL ({$result['reason']})\n";
                   $fail++;
               }
           }
@@ -215,7 +216,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add configs/
+          git add -A configs/
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
