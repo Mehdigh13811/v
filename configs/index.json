@@ -1,0 +1,297 @@
+{
+    "success": true,
+    "name": "Source-Store VPN API",
+    "version": "1.0.0",
+    "updated_at": "2026-10-10T17:33:05+00:00",
+    "total_defined": 27,
+    "total_available": 25,
+    "total_unavailable": 2,
+    "endpoints": {
+        "license": "?api=license&key=LICENSE_KEY",
+        "servers": "?api=servers",
+        "config": "?api=config&key=LICENSE_KEY&hash=HASH",
+        "all_configs": "?api=all_configs&key=LICENSE_KEY",
+        "ping": "?api=ping"
+    },
+    "support": {
+        "telegram": "@MehdiGH_1381",
+        "website": "Source-Store.ir"
+    },
+    "servers": {
+        "8e4aff22a236a0248110950e2bc004e3": {
+            "name": "لندن 1",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": false,
+            "ip": "194.110.246.57",
+            "port": 443,
+            "updated_at": "2026-10-10T17:28:29+00:00"
+        },
+        "103dcdb655fdc8f190fad5103eff7b1c": {
+            "name": "لندن 2",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": false,
+            "ip": "91.216.155.20",
+            "port": 443,
+            "updated_at": "2026-10-10T17:28:40+00:00"
+        },
+        "1b53a629cd6c462a0fc79c5b443a18f2": {
+            "name": "لندن 3",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": false,
+            "ip": "198.244.191.228",
+            "port": 443,
+            "updated_at": "2026-10-10T17:28:49+00:00"
+        },
+        "3032ab5f733e32987fb8c558a1ab6bd8": {
+            "name": "لندن 4",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": true,
+            "ip": "45.147.249.173",
+            "port": 443,
+            "updated_at": "2026-10-10T17:28:58+00:00"
+        },
+        "443f285884c2ee2ba1c2d413c4b061b1": {
+            "name": "لندن 6",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": true,
+            "ip": "45.10.58.109",
+            "port": 443,
+            "updated_at": "2026-10-10T17:29:08+00:00"
+        },
+        "65fb9a7eda69a2c86c5aab403c6f6a68": {
+            "name": "لندن 7",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": false,
+            "ip": "45.197.133.9",
+            "port": 443,
+            "updated_at": "2026-10-10T17:29:18+00:00"
+        },
+        "cf787aff3d5abb2d6874cd07829c059d": {
+            "name": "لندن 8",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": false,
+            "ip": "45.154.205.172",
+            "port": 443,
+            "updated_at": "2026-10-10T17:29:30+00:00"
+        },
+        "2e11f3164e78621056ebe3b9420263cd": {
+            "name": "لندن 9",
+            "flag": "🇬🇧",
+            "country_fa": "بریتانیا",
+            "country_en": "United Kingdom",
+            "country_ru": "Великобритания",
+            "free": false,
+            "ip": "89.185.84.15",
+            "port": 443,
+            "updated_at": "2026-10-10T17:29:42+00:00"
+        },
+        "41f4b39ecd01db60722cc1e9a49021ea": {
+            "name": "هلسینکی",
+            "flag": "🇫🇮",
+            "country_fa": "فنلاند",
+            "country_en": "Finland",
+            "country_ru": "Финляндия",
+            "free": false,
+            "ip": "185.117.119.165",
+            "port": 443,
+            "updated_at": "2026-10-10T17:30:03+00:00"
+        },
+        "ccaf9df13557073f4c665a55471c06dd": {
+            "name": "هلسینکی 2",
+            "flag": "🇫🇮",
+            "country_fa": "فنلاند",
+            "country_en": "Finland",
+            "country_ru": "Финляндия",
+            "free": false,
+            "ip": "65.109.4.45",
+            "port": 443,
+            "updated_at": "2026-10-10T17:30:12+00:00"
+        },
+        "584c39263735f278be00f8c77616d71d": {
+            "name": "پاریس 2",
+            "flag": "🇫🇷",
+            "country_fa": "فرانسه",
+            "country_en": "France",
+            "country_ru": "Франция",
+            "free": false,
+            "ip": "45.95.233.182",
+            "port": 443,
+            "updated_at": "2026-10-10T17:30:24+00:00"
+        },
+        "7e12a316c18322a66095af6404701691": {
+            "name": "پاریس 5",
+            "flag": "🇫🇷",
+            "country_fa": "فرانسه",
+            "country_en": "France",
+            "country_ru": "Франция",
+            "free": false,
+            "ip": "195.154.118.9",
+            "port": 443,
+            "updated_at": "2026-10-10T17:30:34+00:00"
+        },
+        "d604037ab01a04334c58f83f3e6fb022": {
+            "name": "لیمبرگ",
+            "flag": "🇩🇪",
+            "country_fa": "آلمان",
+            "country_en": "Germany",
+            "country_ru": "Германия",
+            "free": false,
+            "ip": "51.75.65.62",
+            "port": 443,
+            "updated_at": "2026-10-10T17:30:42+00:00"
+        },
+        "0bab23ed9c9d495b380deba981e1ae5b": {
+            "name": "نورنبرگ",
+            "flag": "🇩🇪",
+            "country_fa": "آلمان",
+            "country_en": "Germany",
+            "country_ru": "Германия",
+            "free": false,
+            "ip": "5.75.189.9",
+            "port": 443,
+            "updated_at": "2026-10-10T17:30:54+00:00"
+        },
+        "ff4f5e5271dda705d21eb96030c78542": {
+            "name": "ریگا",
+            "flag": "🇱🇻",
+            "country_fa": "لتونی",
+            "country_en": "Latvia",
+            "country_ru": "Латвия",
+            "free": false,
+            "ip": "195.123.210.25",
+            "port": 443,
+            "updated_at": "2026-10-10T17:31:06+00:00"
+        },
+        "93ab5b85e1dc72c92e2e930d9d862da6": {
+            "name": "آمستردام",
+            "flag": "🇳🇱",
+            "country_fa": "هلند",
+            "country_en": "Netherlands",
+            "country_ru": "Нидерланды",
+            "free": false,
+            "ip": "163.172.217.84",
+            "port": 443,
+            "updated_at": "2026-10-10T17:31:15+00:00"
+        },
+        "d2edfce290994ea85d764985f0166376": {
+            "name": "مپل",
+            "flag": "🇳🇱",
+            "country_fa": "هلند",
+            "country_en": "Netherlands",
+            "country_ru": "Нидерланды",
+            "free": false,
+            "ip": "176.57.70.71",
+            "port": 443,
+            "updated_at": "2026-10-10T17:31:36+00:00"
+        },
+        "7bd77605e0f24d3bc23ed2332f7889cb": {
+            "name": "فاتژ",
+            "flag": "🇷🇺",
+            "country_fa": "روسیه",
+            "country_en": "Russia",
+            "country_ru": "Россия",
+            "free": false,
+            "ip": "51.158.152.100",
+            "port": 443,
+            "updated_at": "2026-10-10T17:31:44+00:00"
+        },
+        "1aaae679966b26801ff37fad781c704d": {
+            "name": "سنگاپور 1",
+            "flag": "🇸🇬",
+            "country_fa": "سنگاپور",
+            "country_en": "Singapore",
+            "country_ru": "Сингапур",
+            "free": false,
+            "ip": "51.79.207.200",
+            "port": 443,
+            "updated_at": "2026-10-10T17:31:56+00:00"
+        },
+        "a95c8029def4dd562e3d2352b80d853a": {
+            "name": "سنگاپور 3",
+            "flag": "🇸🇬",
+            "country_fa": "سنگاپور",
+            "country_en": "Singapore",
+            "country_ru": "Сингапур",
+            "free": false,
+            "ip": "176.97.65.70",
+            "port": 443,
+            "updated_at": "2026-10-10T17:32:08+00:00"
+        },
+        "2dee89dc102e525673c3a05153427500": {
+            "name": "خارکیف",
+            "flag": "🇺🇦",
+            "country_fa": "اوکراین",
+            "country_en": "Ukraine",
+            "country_ru": "Украина",
+            "free": false,
+            "ip": "193.238.152.112",
+            "port": 443,
+            "updated_at": "2026-10-10T17:32:20+00:00"
+        },
+        "b2d5157151f6586e22caab5f45e6c5e6": {
+            "name": "آتلانتا 1",
+            "flag": "🇺🇸",
+            "country_fa": "آمریکا",
+            "country_en": "United States",
+            "country_ru": "США",
+            "free": false,
+            "ip": "45.66.248.14",
+            "port": 443,
+            "updated_at": "2026-10-10T17:32:31+00:00"
+        },
+        "44cc9ada5920ca8efd31c7496b262191": {
+            "name": "نیویورک",
+            "flag": "🇺🇸",
+            "country_fa": "آمریکا",
+            "country_en": "United States",
+            "country_ru": "США",
+            "free": false,
+            "ip": "185.172.129.9",
+            "port": 443,
+            "updated_at": "2026-10-10T17:32:43+00:00"
+        },
+        "cb91ece95a73ae0283ec3719ab759f90": {
+            "name": "استانبل 8",
+            "flag": "🇹🇷",
+            "country_fa": "ترکیه",
+            "country_en": "Turkey",
+            "country_ru": "Турция",
+            "free": false,
+            "ip": "95.85.76.123",
+            "port": 443,
+            "updated_at": "2026-10-10T17:32:54+00:00"
+        },
+        "6b5a3c3e2b9b4e6b965a639f4664e446": {
+            "name": "استانبل 3",
+            "flag": "🇹🇷",
+            "country_fa": "ترکیه",
+            "country_en": "Turkey",
+            "country_ru": "Турция",
+            "free": false,
+            "ip": "5.188.36.169",
+            "port": 443,
+            "updated_at": "2026-10-10T17:33:05+00:00"
+        }
+    }
+}
