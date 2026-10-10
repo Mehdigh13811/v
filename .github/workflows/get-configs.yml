@@ -2,7 +2,7 @@ name: Refresh VPN Configs
 
 on:
   schedule:
-    - cron: '*/15 * * * *'
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 
 permissions:
@@ -14,13 +14,15 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
           extensions: curl, json
+          ini-values: memory_limit=256M
 
       - name: Fetch all configs
         run: |
@@ -28,34 +30,38 @@ jobs:
           php <<'PHP_RUN'
           <?php
           $servers = [
-              '8e4aff22a236a0248110950e2bc004e3' => ['name' => 'لندن 1', 'flag' => '🇬🇧', 'free' => false],
-              '103dcdb655fdc8f190fad5103eff7b1c' => ['name' => 'لندن 2', 'flag' => '🇬🇧', 'free' => false],
-              '1b53a629cd6c462a0fc79c5b443a18f2' => ['name' => 'لندن 3', 'flag' => '🇬🇧', 'free' => false],
-              '3032ab5f733e32987fb8c558a1ab6bd8' => ['name' => 'لندن 4', 'flag' => '🇬🇧', 'free' => true],
-              '443f285884c2ee2ba1c2d413c4b061b1' => ['name' => 'لندن 6', 'flag' => '🇬🇧', 'free' => true],
-              '65fb9a7eda69a2c86c5aab403c6f6a68' => ['name' => 'لندن 7', 'flag' => '🇬🇧', 'free' => false],
-              'cf787aff3d5abb2d6874cd07829c059d' => ['name' => 'لندن 8', 'flag' => '🇬🇧', 'free' => false],
-              '2e11f3164e78621056ebe3b9420263cd' => ['name' => 'لندن 9', 'flag' => '🇬🇧', 'free' => false],
-              'aa9b688d11f6f00f5e35df9432ab8787' => ['name' => 'تورنتو 6', 'flag' => '🇨🇦', 'free' => false],
-              '41f4b39ecd01db60722cc1e9a49021ea' => ['name' => 'هلسینکی', 'flag' => '🇫🇮', 'free' => false],
-              'ccaf9df13557073f4c665a55471c06dd' => ['name' => 'هلسینکی 2', 'flag' => '🇫🇮', 'free' => false],
-              '584c39263735f278be00f8c77616d71d' => ['name' => 'پاریس 2', 'flag' => '🇫🇷', 'free' => false],
-              '7e12a316c18322a66095af6404701691' => ['name' => 'پاریس 5', 'flag' => '🇫🇷', 'free' => false],
-              'd604037ab01a04334c58f83f3e6fb022' => ['name' => 'لیمبرگ', 'flag' => '🇩🇪', 'free' => false],
-              '0bab23ed9c9d495b380deba981e1ae5b' => ['name' => 'نورنبرگ', 'flag' => '🇩🇪', 'free' => false],
-              'ff4f5e5271dda705d21eb96030c78542' => ['name' => 'ریگا', 'flag' => '🇱🇻', 'free' => false],
-              '93ab5b85e1dc72c92e2e930d9d862da6' => ['name' => 'آمستردام', 'flag' => '🇳🇱', 'free' => false],
-              '76207c1dec9e7ebdcd6602c1efb4626e' => ['name' => 'ملیسانت', 'flag' => '🇳🇱', 'free' => false],
-              'd2edfce290994ea85d764985f0166376' => ['name' => 'مپل', 'flag' => '🇳🇱', 'free' => false],
-              '7bd77605e0f24d3bc23ed2332f7889cb' => ['name' => 'فاتژ', 'flag' => '🇷🇺', 'free' => false],
-              '1aaae679966b26801ff37fad781c704d' => ['name' => 'سنگاپور 1', 'flag' => '🇸🇬', 'free' => false],
-              'a95c8029def4dd562e3d2352b80d853a' => ['name' => 'سنگاپور 3', 'flag' => '🇸🇬', 'free' => false],
-              '2dee89dc102e525673c3a05153427500' => ['name' => 'خارکیف', 'flag' => '🇺🇦', 'free' => false],
-              'b2d5157151f6586e22caab5f45e6c5e6' => ['name' => 'آتلانتا 1', 'flag' => '🇺🇸', 'free' => false],
-              '44cc9ada5920ca8efd31c7496b262191' => ['name' => 'نیویورک', 'flag' => '🇺🇸', 'free' => false],
-              'cb91ece95a73ae0283ec3719ab759f90' => ['name' => 'استانبل 8', 'flag' => '🇹🇷', 'free' => false],
-              '6b5a3c3e2b9b4e6b965a639f4664e446' => ['name' => 'استانبل 3', 'flag' => '🇹🇷', 'free' => false],
+              '8e4aff22a236a0248110950e2bc004e3' => ['name' => 'لندن 1', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
+              '103dcdb655fdc8f190fad5103eff7b1c' => ['name' => 'لندن 2', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
+              '1b53a629cd6c462a0fc79c5b443a18f2' => ['name' => 'لندن 3', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
+              '3032ab5f733e32987fb8c558a1ab6bd8' => ['name' => 'لندن 4', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => true],
+              '443f285884c2ee2ba1c2d413c4b061b1' => ['name' => 'لندن 6', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => true],
+              '65fb9a7eda69a2c86c5aab403c6f6a68' => ['name' => 'لندن 7', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
+              'cf787aff3d5abb2d6874cd07829c059d' => ['name' => 'لندن 8', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
+              '2e11f3164e78621056ebe3b9420263cd' => ['name' => 'لندن 9', 'flag' => '🇬🇧', 'country_fa' => 'بریتانیا', 'country_en' => 'United Kingdom', 'country_ru' => 'Великобритания', 'free' => false],
+              'aa9b688d11f6f00f5e35df9432ab8787' => ['name' => 'تورنتو 6', 'flag' => '🇨🇦', 'country_fa' => 'کانادا', 'country_en' => 'Canada', 'country_ru' => 'Канада', 'free' => false],
+              '41f4b39ecd01db60722cc1e9a49021ea' => ['name' => 'هلسینکی', 'flag' => '🇫🇮', 'country_fa' => 'فنلاند', 'country_en' => 'Finland', 'country_ru' => 'Финляндия', 'free' => false],
+              'ccaf9df13557073f4c665a55471c06dd' => ['name' => 'هلسینکی 2', 'flag' => '🇫🇮', 'country_fa' => 'فنلاند', 'country_en' => 'Finland', 'country_ru' => 'Финляндия', 'free' => false],
+              '584c39263735f278be00f8c77616d71d' => ['name' => 'پاریس 2', 'flag' => '🇫🇷', 'country_fa' => 'فرانسه', 'country_en' => 'France', 'country_ru' => 'Франция', 'free' => false],
+              '7e12a316c18322a66095af6404701691' => ['name' => 'پاریس 5', 'flag' => '🇫🇷', 'country_fa' => 'فرانسه', 'country_en' => 'France', 'country_ru' => 'Франция', 'free' => false],
+              'd604037ab01a04334c58f83f3e6fb022' => ['name' => 'لیمبرگ', 'flag' => '🇩🇪', 'country_fa' => 'آلمان', 'country_en' => 'Germany', 'country_ru' => 'Германия', 'free' => false],
+              '0bab23ed9c9d495b380deba981e1ae5b' => ['name' => 'نورنبرگ', 'flag' => '🇩🇪', 'country_fa' => 'آلمان', 'country_en' => 'Germany', 'country_ru' => 'Германия', 'free' => false],
+              'ff4f5e5271dda705d21eb96030c78542' => ['name' => 'ریگا', 'flag' => '🇱🇻', 'country_fa' => 'لتونی', 'country_en' => 'Latvia', 'country_ru' => 'Латвия', 'free' => false],
+              '93ab5b85e1dc72c92e2e930d9d862da6' => ['name' => 'آمستردام', 'flag' => '🇳🇱', 'country_fa' => 'هلند', 'country_en' => 'Netherlands', 'country_ru' => 'Нидерланды', 'free' => false],
+              '76207c1dec9e7ebdcd6602c1efb4626e' => ['name' => 'ملیسانت', 'flag' => '🇳🇱', 'country_fa' => 'هلند', 'country_en' => 'Netherlands', 'country_ru' => 'Нидерланды', 'free' => false],
+              'd2edfce290994ea85d764985f0166376' => ['name' => 'مپل', 'flag' => '🇳🇱', 'country_fa' => 'هلند', 'country_en' => 'Netherlands', 'country_ru' => 'Нидерланды', 'free' => false],
+              '7bd77605e0f24d3bc23ed2332f7889cb' => ['name' => 'فاتژ', 'flag' => '🇷🇺', 'country_fa' => 'روسیه', 'country_en' => 'Russia', 'country_ru' => 'Россия', 'free' => false],
+              '1aaae679966b26801ff37fad781c704d' => ['name' => 'سنگاپور 1', 'flag' => '🇸🇬', 'country_fa' => 'سنگاپور', 'country_en' => 'Singapore', 'country_ru' => 'Сингапур', 'free' => false],
+              'a95c8029def4dd562e3d2352b80d853a' => ['name' => 'سنگاپور 3', 'flag' => '🇸🇬', 'country_fa' => 'سنگاپور', 'country_en' => 'Singapore', 'country_ru' => 'Сингапур', 'free' => false],
+              '2dee89dc102e525673c3a05153427500' => ['name' => 'خارکیف', 'flag' => '🇺🇦', 'country_fa' => 'اوکراین', 'country_en' => 'Ukraine', 'country_ru' => 'Украина', 'free' => false],
+              'b2d5157151f6586e22caab5f45e6c5e6' => ['name' => 'آتلانتا 1', 'flag' => '🇺🇸', 'country_fa' => 'آمریکا', 'country_en' => 'United States', 'country_ru' => 'США', 'free' => false],
+              '44cc9ada5920ca8efd31c7496b262191' => ['name' => 'نیویورک', 'flag' => '🇺🇸', 'country_fa' => 'آمریکا', 'country_en' => 'United States', 'country_ru' => 'США', 'free' => false],
+              'cb91ece95a73ae0283ec3719ab759f90' => ['name' => 'استانبل 8', 'flag' => '🇹🇷', 'country_fa' => 'ترکیه', 'country_en' => 'Turkey', 'country_ru' => 'Турция', 'free' => false],
+              '6b5a3c3e2b9b4e6b965a639f4664e446' => ['name' => 'استانبل 3', 'flag' => '🇹🇷', 'country_fa' => 'ترکیه', 'country_en' => 'Turkey', 'country_ru' => 'Турция', 'free' => false],
           ];
+
+          $DELAY_MIN = 8;
+          $DELAY_MAX = 12;
+          $MAX_RETRIES = 2;
 
           function fetchConfig($hash) {
               $url = "https://api.tap2free.net/api/uk-server?ip=" . $hash;
@@ -75,52 +81,109 @@ jobs:
               $response = curl_exec($ch);
               $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
               curl_close($ch);
-              if ($httpCode != 200 || !$response) return false;
+              if ($httpCode != 200 || !$response) {
+                  echo "  HTTP {$httpCode}\n";
+                  return false;
+              }
               $data = json_decode($response, true);
-              return isset($data['config']) ? $data['config'] : false;
+              if (!isset($data['config']) || empty($data['config'])) {
+                  echo "  No config in response: " . substr($response, 0, 120) . "\n";
+                  return false;
+              }
+              return $data['config'];
+          }
+
+          function smartSleep($min, $max) {
+              $sec = rand($min, $max);
+              echo "  Sleeping {$sec}s...\n";
+              sleep($sec);
           }
 
           $ok = 0;
           $fail = 0;
           $index = [];
+          $first = true;
+          $total = count($servers);
+          $i = 0;
 
           foreach ($servers as $hash => $info) {
-              $config = fetchConfig($hash);
+              $i++;
+
+              if (!$first) {
+                  smartSleep($DELAY_MIN, $DELAY_MAX);
+              }
+              $first = false;
+
+              echo "[{$i}/{$total}] {$info['name']} ({$hash})\n";
+
+              $config = false;
+              for ($attempt = 1; $attempt <= $MAX_RETRIES; $attempt++) {
+                  if ($attempt > 1) {
+                      echo "  Retry {$attempt}...\n";
+                      smartSleep($DELAY_MIN, $DELAY_MAX);
+                  }
+                  $config = fetchConfig($hash);
+                  if ($config !== false) break;
+              }
+
               if ($config !== false) {
                   $entry = [
                       'hash' => $hash,
                       'name' => $info['name'],
                       'flag' => $info['flag'],
+                      'country_fa' => $info['country_fa'],
+                      'country_en' => $info['country_en'],
+                      'country_ru' => $info['country_ru'],
                       'free' => $info['free'],
                       'config' => $config,
                       'updated_at' => date('c'),
                   ];
                   file_put_contents("configs/{$hash}.json",
                       json_encode($entry, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+
                   $index[$hash] = [
                       'name' => $info['name'],
                       'flag' => $info['flag'],
+                      'country_fa' => $info['country_fa'],
+                      'country_en' => $info['country_en'],
+                      'country_ru' => $info['country_ru'],
                       'free' => $info['free'],
                       'updated_at' => date('c'),
                   ];
-                  echo "OK   : {$info['name']}\n";
+                  echo "  OK\n";
                   $ok++;
               } else {
-                  echo "FAIL : {$info['name']}\n";
+                  echo "  FAIL\n";
                   $fail++;
               }
           }
 
           file_put_contents('configs/index.json',
               json_encode([
+                  'success' => true,
+                  'name' => 'Source-Store VPN API',
+                  'version' => '1.0.0',
                   'updated_at' => date('c'),
-                  'total' => count($servers),
-                  'success' => $ok,
-                  'failed' => $fail,
+                  'total' => $total,
+                  'success_count' => $ok,
+                  'failed_count' => $fail,
+                  'endpoints' => [
+                      'license' => '?api=license&key=LICENSE_KEY',
+                      'servers' => '?api=servers',
+                      'config' => '?api=config&key=LICENSE_KEY&hash=HASH',
+                      'ping' => '?api=ping'
+                  ],
+                  'support' => [
+                      'telegram' => '@MehdiGH_1381',
+                      'website' => 'Source-Store.ir'
+                  ],
                   'servers' => $index,
               ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 
-          echo "Success: {$ok}, Failed: {$fail}\n";
+          echo "\n=====================\n";
+          echo "Success: {$ok}\n";
+          echo "Failed : {$fail}\n";
+          echo "Total  : {$total}\n";
           PHP_RUN
 
       - name: Commit and push
@@ -129,8 +192,16 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add configs/
           if git diff --staged --quiet; then
-            echo "No changes"
+            echo "No changes to commit"
           else
             git commit -m "chore: refresh configs $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             git push
           fi
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: configs-${{ github.run_number }}
+          path: configs/
+          retention-days: 30
