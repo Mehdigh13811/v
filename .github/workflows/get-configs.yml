@@ -60,6 +60,8 @@ jobs:
               '06c17b62482f9a45c3bc3baee9eb9690' => ['name' => 'Baku', 'flag' => '🇦🇿', 'country_fa' => 'آذربایجان', 'country_en' => 'Azerbaijan', 'country_ru' => 'Азербайджан', 'free' => false],
               '99a5e6811782fe508d40aba5ac504d22' => ['name' => 'Paris 3', 'flag' => '🇫🇷', 'country_fa' => 'فرانسه', 'country_en' => 'France', 'country_ru' => 'Франция', 'free' => false],
               'fefa5f5bb3e1d9be637a88a29c6186dc' => ['name' => 'Zurich 2', 'flag' => '🇨🇭', 'country_fa' => 'سوئیس', 'country_en' => 'Switzerland', 'country_ru' => 'Швейцария', 'free' => false],
+              '4e7ab3c82a1fa894e6d0c8bded37381c' => ['name' => 'Burgas', 'flag' => '🇧🇬', 'country_fa' => 'بلغارستان', 'country_en' => 'Bulgaria', 'country_ru' => 'Болгария', 'free' => false],
+              'ebff9c473873102e64baf1ac18978649' => ['name' => 'Prague 2', 'flag' => '🇨🇿', 'country_fa' => 'جمهوری چک', 'country_en' => 'Czech Republic', 'country_ru' => 'Чехия', 'free' => false],
           ];
 
           $DELAY_MIN = 8;
