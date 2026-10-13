@@ -57,6 +57,9 @@ jobs:
               '44cc9ada5920ca8efd31c7496b262191' => ['name' => 'New York', 'flag' => '🇺🇸', 'country_fa' => 'آمریکا', 'country_en' => 'United States', 'country_ru' => 'США', 'free' => false],
               'cb91ece95a73ae0283ec3719ab759f90' => ['name' => 'Istanbul 8', 'flag' => '🇹🇷', 'country_fa' => 'ترکیه', 'country_en' => 'Turkey', 'country_ru' => 'Турция', 'free' => false],
               '6b5a3c3e2b9b4e6b965a639f4664e446' => ['name' => 'Istanbul 3', 'flag' => '🇹🇷', 'country_fa' => 'ترکیه', 'country_en' => 'Turkey', 'country_ru' => 'Турция', 'free' => false],
+              '06c17b62482f9a45c3bc3baee9eb9690' => ['name' => 'Baku', 'flag' => '🇦🇿', 'country_fa' => 'آذربایجان', 'country_en' => 'Azerbaijan', 'country_ru' => 'Азербайджан', 'free' => false],
+              '99a5e6811782fe508d40aba5ac504d22' => ['name' => 'Paris 3', 'flag' => '🇫🇷', 'country_fa' => 'فرانسه', 'country_en' => 'France', 'country_ru' => 'Франция', 'free' => false],
+              'fefa5f5bb3e1d9be637a88a29c6186dc' => ['name' => 'Zurich 2', 'flag' => '🇨🇭', 'country_fa' => 'سوئیس', 'country_en' => 'Switzerland', 'country_ru' => 'Швейцария', 'free' => false],
           ];
 
           $DELAY_MIN = 8;
