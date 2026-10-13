@@ -68,6 +68,7 @@ jobs:
               '0377faacbb780ddcb6a9ee485e97982d' => ['name' => 'Krainem', 'flag' => '🇧🇪', 'country_fa' => 'بلژیک', 'country_en' => 'Belgium', 'country_ru' => 'Бельгия', 'free' => false],
               '62d495e0dcc2d7bc8c90a942dfa92c51' => ['name' => 'Nitra', 'flag' => '🇸🇰', 'country_fa' => 'اسلواکی', 'country_en' => 'Slovakia', 'country_ru' => 'Словакия', 'free' => false],
               'ebca39c59a4951cae24d313e0eaf3575' => ['name' => 'Milan', 'flag' => '🇮🇹', 'country_fa' => 'ایتالیا', 'country_en' => 'Italy', 'country_ru' => 'Италия', 'free' => false],
+              '0377faacbb780ddcb6a9ee485e97982d' => ['name' => 'Kraainem', 'flag' => '🇧🇪', 'country_fa' => 'بلژیک', 'country_en' => 'Belgium', 'country_ru' => 'Бельгия', 'free' => false],
           ];
 
           $DELAY_MIN = 8;
