@@ -62,6 +62,12 @@ jobs:
               'fefa5f5bb3e1d9be637a88a29c6186dc' => ['name' => 'Zurich 2', 'flag' => '🇨🇭', 'country_fa' => 'سوئیس', 'country_en' => 'Switzerland', 'country_ru' => 'Швейцария', 'free' => false],
               '4e7ab3c82a1fa894e6d0c8bded37381c' => ['name' => 'Burgas', 'flag' => '🇧🇬', 'country_fa' => 'بلغارستان', 'country_en' => 'Bulgaria', 'country_ru' => 'Болгария', 'free' => false],
               'ebff9c473873102e64baf1ac18978649' => ['name' => 'Prague 2', 'flag' => '🇨🇿', 'country_fa' => 'جمهوری چک', 'country_en' => 'Czech Republic', 'country_ru' => 'Чехия', 'free' => false],
+              '0b869291c9b77d3233067ecdd2f57e82' => ['name' => 'Tallinn', 'flag' => '🇪🇪', 'country_fa' => 'استونی', 'country_en' => 'Estonia', 'country_ru' => 'Эстония', 'free' => false],
+              '70d2945e2934cb966d4bcb23a34a6caa' => ['name' => 'Vienna 2', 'flag' => '🇦🇹', 'country_fa' => 'اتریش', 'country_en' => 'Austria', 'country_ru' => 'Австрия', 'free' => false],
+              'ff37d5ec873ca6910d79d3b497e356fb' => ['name' => 'Haarlem', 'flag' => '🇳🇱', 'country_fa' => 'هلند', 'country_en' => 'Netherlands', 'country_ru' => 'Нидерланды', 'free' => false],
+              '0377faacbb780ddcb6a9ee485e97982d' => ['name' => 'Krainem', 'flag' => '🇧🇪', 'country_fa' => 'بلژیک', 'country_en' => 'Belgium', 'country_ru' => 'Бельгия', 'free' => false],
+              '62d495e0dcc2d7bc8c90a942dfa92c51' => ['name' => 'Nitra', 'flag' => '🇸🇰', 'country_fa' => 'اسلواکی', 'country_en' => 'Slovakia', 'country_ru' => 'Словакия', 'free' => false],
+              'ebca39c59a4951cae24d313e0eaf3575' => ['name' => 'Milan', 'flag' => '🇮🇹', 'country_fa' => 'ایتالیا', 'country_en' => 'Italy', 'country_ru' => 'Италия', 'free' => false],
           ];
 
           $DELAY_MIN = 8;
