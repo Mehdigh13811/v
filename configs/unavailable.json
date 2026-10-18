@@ -1,30 +1,30 @@
 {
-    "updated_at": "2026-10-17T20:05:22+00:00",
+    "updated_at": "2026-10-18T02:47:18+00:00",
     "count": 4,
     "servers": {
         "aa9b688d11f6f00f5e35df9432ab8787": {
             "name": "Toronto 6",
             "flag": "🇨🇦",
             "reason": "server_not_found",
-            "checked_at": "2026-10-17T20:00:13+00:00"
+            "checked_at": "2026-10-18T02:42:19+00:00"
         },
         "76207c1dec9e7ebdcd6602c1efb4626e": {
             "name": "Melissant",
             "flag": "🇳🇱",
             "reason": "server_not_found",
-            "checked_at": "2026-10-17T20:01:57+00:00"
+            "checked_at": "2026-10-18T02:43:54+00:00"
         },
         "cb91ece95a73ae0283ec3719ab759f90": {
             "name": "Istanbul 8",
             "flag": "🇹🇷",
             "reason": "server_not_found",
-            "checked_at": "2026-10-17T20:03:17+00:00"
+            "checked_at": "2026-10-18T02:45:23+00:00"
         },
         "6b5a3c3e2b9b4e6b965a639f4664e446": {
             "name": "Istanbul 3",
             "flag": "🇹🇷",
             "reason": "server_not_found",
-            "checked_at": "2026-10-17T20:03:27+00:00"
+            "checked_at": "2026-10-18T02:45:33+00:00"
         }
     }
 }
