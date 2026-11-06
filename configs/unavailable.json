@@ -1,36 +1,30 @@
 {
-    "updated_at": "2026-11-05T23:17:14+00:00",
-    "count": 5,
+    "updated_at": "2026-11-06T04:52:30+00:00",
+    "count": 4,
     "servers": {
         "8e4aff22a236a0248110950e2bc004e3": {
             "name": "London 1",
             "flag": "🇬🇧",
             "reason": "server_not_found",
-            "checked_at": "2026-11-05T23:10:46+00:00"
+            "checked_at": "2026-11-06T04:45:57+00:00"
         },
         "aa9b688d11f6f00f5e35df9432ab8787": {
             "name": "Toronto 6",
             "flag": "🇨🇦",
             "reason": "server_not_found",
-            "checked_at": "2026-11-05T23:12:15+00:00"
+            "checked_at": "2026-11-06T04:47:24+00:00"
         },
         "76207c1dec9e7ebdcd6602c1efb4626e": {
             "name": "Melissant",
             "flag": "🇳🇱",
             "reason": "server_not_found",
-            "checked_at": "2026-11-05T23:13:45+00:00"
+            "checked_at": "2026-11-06T04:49:00+00:00"
         },
         "b2d5157151f6586e22caab5f45e6c5e6": {
             "name": "Atlanta 1",
             "flag": "🇺🇸",
             "reason": "server_not_found",
-            "checked_at": "2026-11-05T23:14:43+00:00"
-        },
-        "0377faacbb780ddcb6a9ee485e97982d": {
-            "name": "Kraainem",
-            "flag": "🇧🇪",
-            "reason": "server_not_found",
-            "checked_at": "2026-11-05T23:16:53+00:00"
+            "checked_at": "2026-11-06T04:49:56+00:00"
         }
     }
 }
